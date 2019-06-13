@@ -42,7 +42,7 @@ public class SparseArray {
 		for(int[] a : chessArr1){  // 首先遍历行
 			for(int b : a){  // 再遍历列
 				if(b != 0){
-					 //有效数据的自增
+					 //有效数据的自增 
 					count++;
 				}
 			// 格式化输出
