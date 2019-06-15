@@ -20,7 +20,8 @@ package com.sparseArr;
  * */
 public class SparseArray {
 	
-//	public static int count = 0;
+	//定义总共有多少个有效数据
+	public static int count = 0;
 	
 	public static void main(String[] args) {
 		
@@ -33,27 +34,10 @@ public class SparseArray {
 		chessArr1[4][7] = 2;
 		chessArr1[8][4] = 1;
 		
-		//定义总共有多少个有效数据
-		int count = 0;
-		
 		System.out.println("原始的二维数组为：");
 		
 		// 遍历二维数组里面的有效数据，并且获得有效数据的总数
-		for(int[] a : chessArr1){  // 首先遍历行
-			for(int b : a){  // 再遍历列
-				if(b != 0){
-					 //有效数据的自增 
-					count++;
-				}
-			// 格式化输出
-				System.out.printf("%d\t",b);
-			}
-			// 每次打完一行的数据则进行换行
-			System.out.println();
-		}
-//		System.out.println(count);
-		
-//		System.out.println(chessArr1.length);
+		outPutArray(chessArr1);
 		
 		// 创建二维稀疏对象
 		int[][] sparseArr = new int[count+1][3];
@@ -80,8 +64,32 @@ public class SparseArray {
 		
 		System.out.println();
 		System.out.println("得到的稀疏数组为：");
+		
 		// 对稀疏数组进行遍历输出
-		for(int[] a : sparseArr){  // 首先遍历行
+		outPutArray(sparseArr);
+		
+		// 接下来将稀疏数组转再变成原来的二维数组
+		// 定义一个新的二维数组
+		int[][] newChessArr = new int[sparseArr[0][0]][sparseArr[0][1]];
+		int newCount = 0;
+		// 首先获取二维数组的行列
+		for(int i=1;i<sparseArr.length;i++){
+			newCount++;
+			newChessArr[sparseArr[newCount][0]][sparseArr[newCount][1]] = sparseArr[newCount][2];
+		}
+		
+		System.out.println();
+		System.out.println("得到的新的数组为：");
+		
+		// 输出新数组
+		outPutArray(newChessArr);
+		
+		
+	}
+	
+	// 格式化输出数组的函数
+	public static void outPutArray(int[][] params){
+		for(int[] a : params){  // 首先遍历行
 			for(int b : a){  // 再遍历列
 				if(b != 0){
 					 //有效数据的自增
@@ -93,22 +101,10 @@ public class SparseArray {
 			// 每次打完一行的数据则进行换行
 			System.out.println();
 		}
-		
-		
-		
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 
 }
 	
