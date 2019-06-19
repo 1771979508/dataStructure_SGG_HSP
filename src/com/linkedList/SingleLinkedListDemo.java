@@ -32,7 +32,7 @@ class SingleLinkedList{
 	// 先初始化一个头节点，头节点不动，不存放具体的数据
 	private HeroNode headNode = new HeroNode(0, "", "");
 	
-	// 添加节点到单项链表
+	// 添加节点到单项链表->
 	// 思路，当不考虑编号顺序的时候
 		// 1.找到当前链表的最后节点
 		// 2.将最后这个节点的next 指向 新的节点
