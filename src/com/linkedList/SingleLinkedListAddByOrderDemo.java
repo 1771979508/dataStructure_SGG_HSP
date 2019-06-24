@@ -28,8 +28,13 @@ public class SingleLinkedListAddByOrderDemo {
 		
 		HeroNodeAddByOrder heroNode = new HeroNodeAddByOrder(2, "我是修改后的2号", "我是修改后的2号");
 		singleLinkedList.updateNode(heroNode);
-		
 		singleLinkedList.list();
+		
+		// 删除一个节点
+		System.out.println("以下为删除节点的操作");
+		singleLinkedList.del(5);
+		singleLinkedList.list();
+		
 	}
 	
 }
@@ -60,7 +65,6 @@ class SingleLinkedListAddByOrder{
 		while(true){
 			
 			// 有一个问题，如果将标志的变量放到循环里面会怎样？
-			
 			
 			// 判断temp的位置
 			if(temp.next == null){ // 如果链表位置在最后面一个
@@ -118,6 +122,33 @@ class SingleLinkedListAddByOrder{
 			temp.nickName = newHeroNode.nickName;
 		}else{  // 没有找到
 			System.out.printf("没有找到 编号 %d 的节点，不能修改\n",newHeroNode.no);
+		}
+	}
+	
+	// 删除节点
+	// 思路：
+	// 	1.head不能动，因此我们需要一个temp辅助节点找到待删除节点的前一个节点
+	//	2.说明我们在比较时，是temp.next.no 和 需要删除的节点的no比较，这样就找到了删除节点的前一个节点temp节点
+	public void del(int no){
+		HeroNodeAddByOrder temp = headNode;
+		boolean flag = false;	// 标志是否找到待删除节点的标志
+		// 这里进行while循环，将temp向后移动用来寻找合适的节点
+		while(true){
+			if(temp.next == null){
+				System.out.println("已经到链表的最后了");
+				break;
+			}
+			if(temp.next.no == no){ // 表明找到了该节点
+				flag = true;
+				break;
+			}
+			temp = temp.next;
+		}
+		// 这里进行一下判断
+		if(flag){ //如果找到了，则进行删除操作 
+			temp.next = temp.next.next;
+		}else{
+			System.out.printf("要删除的%d 节点不存在 \n",no);
 		}
 	}
 	
