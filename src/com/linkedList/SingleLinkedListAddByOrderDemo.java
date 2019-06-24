@@ -23,6 +23,13 @@ public class SingleLinkedListAddByOrderDemo {
 		
 		singleLinkedList.list();
 		
+		// 修改的操作
+		System.out.println("以下为修改的操作");
+		
+		HeroNodeAddByOrder heroNode = new HeroNodeAddByOrder(2, "我是修改后的2号", "我是修改后的2号");
+		singleLinkedList.updateNode(heroNode);
+		
+		singleLinkedList.list();
 	}
 	
 }
@@ -79,6 +86,42 @@ class SingleLinkedListAddByOrder{
 		}
 		
 	}
+	
+	// 修改节点的信息，根据no编号来改，即no编号不能改
+	// 说明
+	// 1.根据newHeroNode 的 no 来修改即可
+	public void updateNode(HeroNodeAddByOrder newHeroNode){
+		// 判断是否为空
+		if(headNode.next == null){
+			System.out.println("链表为空~");
+			return;
+		}
+		// 找到需要修改的节点，根据no编号
+		// 定义一个辅助变量
+		HeroNodeAddByOrder temp = headNode.next;
+		boolean flag = false; // 表示是否找到该节点
+		while(true){
+			if(temp == null){
+				break;  // 已经遍历完链表
+			}
+			if(temp.no == newHeroNode.no){
+				// 表明已经找到了
+				flag = true;
+				break;
+			}
+			// 继续往下走
+			temp = temp.next;
+		}
+		// 根据flag 判断是否找到要修改的节点
+		if(flag){
+			temp.name = newHeroNode.name;
+			temp.nickName = newHeroNode.nickName;
+		}else{  // 没有找到
+			System.out.printf("没有找到 编号 %d 的节点，不能修改\n",newHeroNode.no);
+		}
+	}
+	
+	
 	
 	// 遍历链表
 	public void list(){
