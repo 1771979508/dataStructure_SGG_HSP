@@ -23,8 +23,31 @@ public class SingleLinkedListDemo {
 		
 		singleLinkedList.list();
 		
+		// 准备测试当前节点中的个数
+		System.out.println("有效节点的个数为："+getCount(singleLinkedList.getHeadNode()));
+		
+		
 	}
 	
+	
+	// 获取有效的节点数(单链表) ->  如果是带头节点的链表，不统计头节点
+	public static int getCount(HeroNode head){// 传一个头节点
+		// 默认整型为0
+		int length = 0;
+		if(head.next == null){
+			System.out.println("该链表为空链表");
+			return 0;
+		}
+		// 定义一个辅助变量
+		HeroNode cur = head.next;
+		// 循环获取节点及相关数据
+		while(cur != null){
+			length++;
+			cur = cur.next;
+		}
+		return length;  
+	}
+
 }
 
 //2.创建单链表的类SingleLinkedList 管理我们的英雄
@@ -32,6 +55,11 @@ class SingleLinkedList{
 	// 先初始化一个头节点，头节点不动，不存放具体的数据
 	private HeroNode headNode = new HeroNode(0, "", "");
 	
+
+	public HeroNode getHeadNode() {
+		return headNode;
+	}
+
 	// 添加节点到单项链表->
 	// 思路，当不考虑编号顺序的时候
 		// 1.找到当前链表的最后节点
@@ -71,6 +99,7 @@ class SingleLinkedList{
 			temp = temp.next;
 		}
 	}
+
 	
 }
 
