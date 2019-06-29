@@ -1,4 +1,7 @@
 package com.linkedList;
+
+import java.util.Stack;
+
 /**
 *	@author 作者 Joker青
 *	@version 创建时间：2019年6月17日 下午11:00:28	
@@ -32,11 +35,36 @@ public class SingleLinkedListDemo {
 		//System.out.println("倒数第k个节点是："+res);
 		
 		// 测试一下链表是否能够成功的反转
-		System.out.println("反转后的链表是：");
-		reverseList(singleLinkedList.getHeadNode());
-		singleLinkedList.list();
+//		System.out.println("反转后的链表是：");
+//		reverseList(singleLinkedList.getHeadNode());
+//		singleLinkedList.list();
+		
+		// 不改变链表结构逆序打印链表
+		System.out.println("逆序打印链表(不改变链表的结构)：");
+		reversePrint(singleLinkedList.getHeadNode());
 		
 	}
+	
+	// 逆序打印单链表 - 不改变链表的结构
+	public static void reversePrint(HeroNode head){
+		if(head.next == null){
+			System.out.println("链表为空");
+			return;
+		}
+		// 创建要给一个栈，将各个节点压入栈
+		Stack<HeroNode> stack = new Stack<HeroNode>();
+		HeroNode cur = head.next;
+		// 遍历入栈
+		while(cur != null){
+			stack.push(cur);
+			cur = cur.next;
+		}
+		// 遍历出栈
+		while(!stack.isEmpty()){
+			System.out.println(stack.pop());
+		}
+	}
+	
 	
 	// 使用头插法来达到链表的反转
 	public static void reverseList(HeroNode head){  // 传入一个头节点
