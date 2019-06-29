@@ -70,6 +70,82 @@ class DoubleLinkedList{
 		heroNode.pre = temp;
 	}
 	
+	// 修改双向链表节点的信息，根据no编号来改，即no编号不能改
+		// 说明
+		// 1.根据newHeroNode 的 no 来修改即可
+	public void updateNode(DoubleHeroNode newHeroNode){
+		// 判断是否为空
+		if(head.next == null){
+			System.out.println("链表为空~");
+			return;
+		}
+		// 找到需要修改的节点，根据no编号
+		// 定义一个辅助变量
+		DoubleHeroNode temp = head.next;
+		boolean flag = false; // 表示是否找到该节点
+		while(true){
+			if(temp == null){
+				break;  // 已经遍历完链表
+			}
+			if(temp.no == newHeroNode.no){
+				// 表明已经找到了
+				flag = true;
+				break;
+			}
+			// 继续往下走
+			temp = temp.next;
+		}
+		// 根据flag 判断是否找到要修改的节点
+		if(flag){
+			temp.name = newHeroNode.name;
+			temp.nickName = newHeroNode.nickName;
+		}else{  // 没有找到
+			System.out.printf("没有找到 编号 %d 的节点，不能修改\n",newHeroNode.no);
+		}
+	}
+	
+	// 双向链表的删除节点
+	// 删除节点
+		// 思路：
+		// 	1.因为是双向链表，因此，我们可以实现自我删除某个节点
+		//	2.直接找到要删除的这个节点，比如temp
+		//  3.temp.pre.next=temp.next
+		//  4.temp.next.pre=temp.pre
+	public void del(int no){
+		// 判断是否为空节点
+		if(head.next == null){
+			System.out.println("链表为空");
+			return;
+		}
+		DoubleHeroNode temp = head.next;
+		boolean flag = false;	// 标志是否找到待删除节点的标志
+		// 这里进行while循环，将temp向后移动用来寻找合适的节点
+		while(true){
+			if(temp == null){
+				System.out.println("已经到链表的最后了");
+				break;
+			}
+			if(temp.no == no){ // 表明找到了该节点
+				flag = true;
+				break;
+			}
+			temp = temp.next;
+		}
+		// 这里进行一下判断
+		if(flag){ //如果找到了，则进行删除操作 
+			//temp.next = temp.next.next;
+			temp.pre.next = temp.next;
+			// 空节点是没有前后指针的，否则会报空指针异常
+			// 所以这里执行的话需要判断是否是最后一个节点  temp.next.pre 会抛空指针异常
+			if(temp.next != null){
+				temp.next.pre = temp.pre;
+			}
+		}else{
+			System.out.printf("要删除的%d 节点不存在 \n",no);
+		}
+	}
+	
+	
 	
 	
 }
