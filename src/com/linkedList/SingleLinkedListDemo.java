@@ -45,6 +45,10 @@ public class SingleLinkedListDemo {
 		
 	}
 	
+	// 习题练习：合并两个有序的单链表，合并之后的链表依然有序
+	
+	
+	
 	// 逆序打印单链表 - 不改变链表的结构
 	public static void reversePrint(HeroNode head){
 		if(head.next == null){

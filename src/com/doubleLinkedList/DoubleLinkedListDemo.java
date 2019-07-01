@@ -14,7 +14,21 @@ public class DoubleLinkedListDemo {
 	
 	public static void main(String[] args) {
 		
-		
+		System.out.println("双向链表的测试：");
+		// 创建节点
+		DoubleHeroNode doubleHeroNode1 = new DoubleHeroNode(1,"1","1");
+		DoubleHeroNode doubleHeroNode2 = new DoubleHeroNode(2,"2","2");
+		DoubleHeroNode doubleHeroNode3 = new DoubleHeroNode(3,"3","3");
+		DoubleHeroNode doubleHeroNode4 = new DoubleHeroNode(4,"4","4");
+		// 创建双向链表
+		DoubleLinkedList doubleLinkedList = new DoubleLinkedList();
+		// 双向链表的添加方法
+		doubleLinkedList.add(doubleHeroNode1);
+		doubleLinkedList.add(doubleHeroNode2);
+		doubleLinkedList.add(doubleHeroNode3);
+		doubleLinkedList.add(doubleHeroNode4);
+		// 输出列表
+		doubleLinkedList.list();
 		
 	}
 	
@@ -26,6 +40,9 @@ class DoubleLinkedList{
 	// 先初始化一个头节点，头节点不要动，不存放具体的数据
 	private DoubleHeroNode head = new DoubleHeroNode(0, "", "");
 	
+	public DoubleHeroNode getHead(){
+		return head;
+	}
 	
 	// 遍历链表
 	public void list(){
@@ -146,6 +163,11 @@ class DoubleLinkedList{
 	}
 	
 	
+	/*
+	 * Practice:双向链表的第二种添加方式，按照编号顺序 [示意图]按照单链表的顺序添加，稍作修改即可
+	 * 
+	 * */
+	
 	
 	
 }
@@ -170,7 +192,6 @@ class DoubleHeroNode{
 				+ pre + "]";
 	}
 
-	
 }
 
 
