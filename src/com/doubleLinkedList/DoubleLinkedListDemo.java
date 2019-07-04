@@ -14,7 +14,6 @@ public class DoubleLinkedListDemo {
 	
 	public static void main(String[] args) {
 		
-		System.out.println("双向链表的测试：");
 		// 创建节点
 		DoubleHeroNode doubleHeroNode1 = new DoubleHeroNode(1,"1","1");
 		DoubleHeroNode doubleHeroNode2 = new DoubleHeroNode(2,"2","2");
@@ -28,6 +27,7 @@ public class DoubleLinkedListDemo {
 		doubleLinkedList.add(doubleHeroNode3);
 		doubleLinkedList.add(doubleHeroNode4);
 		// 输出列表
+		System.out.println("双向链表的测试：");
 		doubleLinkedList.list();
 		
 	}
@@ -188,8 +188,11 @@ class DoubleHeroNode{
 
 	@Override
 	public String toString() {
-		return "DoubleHeroNode [no=" + no + ", name=" + name + ", nickName=" + nickName + ", next=" + next + ", pre="
-				+ pre + "]";
+		// 原本的
+//		return "DoubleHeroNode [no=" + no + ", name=" + name + ", nickName=" + nickName + ", next=" + next + ", pre="
+//				+ pre + "]";
+		
+		return "DoubleHeroNode [no=" + no + ", name=" + name + ", nickName=" + nickName + ", next=" + next + "]";
 	}
 
 }
