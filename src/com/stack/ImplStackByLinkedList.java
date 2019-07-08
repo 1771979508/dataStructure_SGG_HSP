@@ -12,5 +12,11 @@ package com.stack;
 
 public class ImplStackByLinkedList {
 	
+	public static void main(String[] args) {
+		
+		
+		
+	}
+	
 }
 	
