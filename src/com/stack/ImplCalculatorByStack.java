@@ -170,7 +170,7 @@ class ArrayStackForCalculator{
 				res = num1+num2;
 				break;
 			case '-':
-				res = num1-num2;
+				res = num2-num1;  // 减法，在后面弹出来的数字减去先弹出来的的数字
 				break;
 			case '*':
 				res = num1*num2;
