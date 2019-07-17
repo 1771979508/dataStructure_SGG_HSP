@@ -18,10 +18,19 @@ public class PolandNotation {
 	
 	public static void main(String[] args) throws Exception {
 		
+		/*一、逆波兰表达式的计算*/
 		// 先定义给逆波兰表达式(后缀表达式) -> 逆波兰表达式转化的结果为什么是这个？
 		//中缀表达式： (3+4)*5-6 => 后缀表达式 3 4 + 5 * 6 -
 		// 说明，为了方便，逆波兰表达式 的数字和符号使用空格 隔开
-		String suffixExpression = "3 4 + 5 * 6 -";
+//		String suffixExpression = "3 4 + 5 * 6 -";
+		
+		
+		/*二、中缀表达式转后缀表达式*/ 
+		// (30+4)*5-6 => 30 4 + 5 * 6 - => 164
+		// 4 * 5 - 8 + 60 + 8 / 2 => 4 5 * 8 - 60 + 8 2 / +
+		
+		
+		
 		// 思路
 			//1.先将"3 4 + 5 * 6 - " => 放到ArrayList中
 			//2.将ArrayList 传递给一个方法，遍历ArrayList 配合栈 完成计算
@@ -33,6 +42,14 @@ public class PolandNotation {
 		System.out.println("计算出来的结果为："+res);
 		
 	}
+	
+	/*二、将中缀表达式转后缀表达式的方法 - 将中缀表达式转成对应的list*/
+	public static List<String> toInfixExpressionList(String s){
+		// 定义一个List，存放中缀表达式 对应的内容
+		List<String> ls = new ArrayList<String>();
+		
+	}
+	
 	
 	//将一个逆波兰表达式，依次将数据和运算符 放到ArrayList中
 	public static List<String> getListString(String suffixExpression){
