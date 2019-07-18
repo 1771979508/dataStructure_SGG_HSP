@@ -19,17 +19,11 @@ public class PolandNotation {
 	public static void main(String[] args) throws Exception {
 		
 		/*一、逆波兰表达式的计算*/
+		/*
 		// 先定义给逆波兰表达式(后缀表达式) -> 逆波兰表达式转化的结果为什么是这个？
 		//中缀表达式： (3+4)*5-6 => 后缀表达式 3 4 + 5 * 6 -
 		// 说明，为了方便，逆波兰表达式 的数字和符号使用空格 隔开
-//		String suffixExpression = "3 4 + 5 * 6 -";
-		
-		
-		/*二、中缀表达式转后缀表达式*/ 
-		// (30+4)*5-6 => 30 4 + 5 * 6 - => 164
-		// 4 * 5 - 8 + 60 + 8 / 2 => 4 5 * 8 - 60 + 8 2 / +
-		
-		
+		String suffixExpression = "3 4 + 5 * 6 -";
 		
 		// 思路
 			//1.先将"3 4 + 5 * 6 - " => 放到ArrayList中
@@ -40,14 +34,41 @@ public class PolandNotation {
 		// 测试结果
 		int res = calculate(rpnList);
 		System.out.println("计算出来的结果为："+res);
+		*/
+		
+		/*二、中缀表达式转后缀表达式*/ 
+		// (30+4)*5-6 => 30 4 + 5 * 6 - => 164
+		// 4 * 5 - 8 + 60 + 8 / 2 => 4 5 * 8 - 60 + 8 2 / +
+		
+		String expression = "1+((2+3)×4)-5";
+		List<String> infixExpressionList = toInfixExpressionList(expression);
+		System.out.println(infixExpressionList);
 		
 	}
 	
 	/*二、将中缀表达式转后缀表达式的方法 - 将中缀表达式转成对应的list*/
+	// s="1+((2+3)*4)-5
 	public static List<String> toInfixExpressionList(String s){
 		// 定义一个List，存放中缀表达式 对应的内容
 		List<String> ls = new ArrayList<String>();
-		
+		int i = 0;// 这是一个指针，用于遍历 中缀表达式字符串
+		String str; // 对多位数的拼接
+		char c; // 每遍历一个字符，就放入到c
+		do{
+			// 如果c是一个非数字，我们需要加入到ls中
+			if((c=s.charAt(i))<48 || (c=s.charAt(i)) > 57){
+				ls.add(""+c);
+				i++; // i需要往后移动 
+			}else{  // 如果是一个数，需要考虑多位数
+				str = ""; // 先将str 置成""  '0'[48] -> '9'[57]
+				while(i<s.length() && (c=s.charAt(i)) >= 48 && (c=s.charAt(i)) <= 57){
+					str += c; // 拼接
+					i++;
+				}
+				ls.add(str);
+			}
+		}while(i<s.length());
+		return ls;
 	}
 	
 	
