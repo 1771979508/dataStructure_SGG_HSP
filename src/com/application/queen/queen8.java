@@ -16,12 +16,17 @@ public class queen8 {
 	// 统计有多少种解法
 	static int count = 0;
 	
+	// 测试回溯了多少次
+	static int countJudge = 0;
+	
 	public static void main(String[] args) {
 		
 		queen8 queen8 = new queen8();
 		queen8.check(0);
 		
 		System.out.printf("一共有%d种解法",count);
+		System.out.println();
+		System.out.printf("一共回溯了%d次",countJudge);
 		
 	}
 	
@@ -58,6 +63,7 @@ public class queen8 {
 	 * 
 	 * */
 	private boolean judge(int n){
+		countJudge++;
 		for(int i=0;i<n;i++){
 			// 说明
 				//1.array[i] == array[n] 表示判断 第n个皇后 是否和前面的n-1个皇后在同一列
