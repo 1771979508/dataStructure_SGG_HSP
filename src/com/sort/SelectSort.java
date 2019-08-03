@@ -99,11 +99,13 @@ public class SelectSort {
 			int min = arr[j];
 			int minIndex = j;
 			for(int i=j+1;i<arr.length;i++){
+				// 下面的这个判断是为了能够找出来，在当前这个数组中动态的一次找到最小值并在循环完成之后确定好这最小值和索引
 				if(min > arr[i]){
 					min = arr[i];  // 现在想不通的是：为啥有了这一步之后还会有下面的那一步
 					minIndex = i;
 				}
 			}
+			// 基于上面判断里面找到的最后的最小值和索引，在这里进行最小值和索引的交换，将找的值和当前排序的位置进行交换
 			if(minIndex != j){  // 想不通的是为什么会有这一步
 				arr[minIndex] = arr[j];
 				arr[j] = min ;
