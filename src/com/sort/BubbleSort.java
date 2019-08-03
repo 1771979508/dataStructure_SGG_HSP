@@ -72,7 +72,7 @@ public class BubbleSort {
 				flag = false;  // 重置flag!!!,进行下一次判断
 			}
 			
-		}
+		} 
 	}
 	
 }
