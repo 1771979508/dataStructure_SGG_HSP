@@ -44,6 +44,8 @@ public class BubbleSort {
 		
 	}
 	
+	
+	// 冒泡排序优化代码
 	public static void bubble(int[] arr){
 		// 第一堂趟排序，就是将最大的数排在最后
 		int temp = 0;  // 临时变量
