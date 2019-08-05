@@ -121,7 +121,7 @@ public class InsertSort {
 			// 3.就需要将arr[insertIndex] 后移
 			while(insertIndex >= 0 && insertVal < arr[insertIndex]){
 				arr[insertIndex + 1] = arr[insertIndex];
-				insertIndex--;
+				insertIndex--; 
 			}
 			// 当退出while循环时，说明插入的位置找到，insertIndex+1
 			
