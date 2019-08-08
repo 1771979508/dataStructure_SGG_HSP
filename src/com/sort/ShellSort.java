@@ -15,6 +15,9 @@ public class ShellSort {
 		// 优化后的希尔排序
 		shellSortOptimize(arr);
 		
+		// 交换位置之后的排序
+		shellSortMoveOptimize(arr);
+		
 	}
 	
 	// 使用逐步推导的方式来编写希尔排序
@@ -68,7 +71,7 @@ public class ShellSort {
 		
 	}
 	
-	
+	// 希尔排序优化版
 	public static void shellSortOptimize(int[] arr){
 		int temp = 0;
 		int count = 0;
@@ -87,6 +90,31 @@ public class ShellSort {
 			System.out.println("希尔排序"+(++count)+"轮后="+Arrays.toString(arr));
 		}
 	}
+	
+	// 对交换式的希尔排序进行优化-> 移位法
+	public static void shellSortMoveOptimize(int[] arr){
+		// 增量gap,并逐步的缩小增量
+		for(int gap = arr.length/2;gap > 0;gap /= 2){
+			// 从gap个元素，逐个对其所在的组进行直接插入排序
+			for(int i=gap;i<arr.length;i++){
+				int j = i;
+				// 先将gap这个索引值存起来
+				int temp = arr[j];
+				// 这里就相当于是 把第一位和总长度/2位置的值进行比较
+				if(arr[j] < arr[j - gap]){
+					// 小于的话则进行交换
+					while(j - gap >=0 && temp < arr[j - gap]){  // 这里不是很懂呐
+						// 进行移动
+						arr[j] = arr[j - gap];
+						j -= gap;
+					}
+					// 当退出while后，就给temp找到插入的位置
+					arr[j] = temp;
+				}
+			}
+		}
+	}
+	
 	
 	
 }
