@@ -17,7 +17,7 @@ public class MergeSort {
 	
 	public static void main(String[] args) {
 		
-		int[] arr = {8,4,5,7,1,3,6,2,9,2};
+		int[] arr = {8,4,5,7,1,3,6,2};
 		int[] temp = new int[arr.length];  // 归并排序需要额外一个空间
 		
 		mergeSort(arr, 0, arr.length-1, temp);
@@ -95,6 +95,10 @@ public class MergeSort {
 		//注意，并不是每次都拷贝所有
 		t = 0;
 		int tempLeft = left;
+		
+		// 打印合并的顺序
+		System.out.println("tempLeft="+tempLeft + "right=" + right);
+		
 		while(tempLeft <= right){
 			arr[tempLeft] = temp[t];
 			t += 1;
