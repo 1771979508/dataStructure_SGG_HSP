@@ -1,6 +1,8 @@
 package com.sort;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 
 /**
 *	@author 作者 Joker青
@@ -17,12 +19,29 @@ public class MergeSort {
 	
 	public static void main(String[] args) {
 		
-		int[] arr = {8,4,5,7,1,3,6,2};
+//		int[] arr = {8,4,5,7,1,3,6,2};
+		
+		//测试排序耗费的时间
+		int[] arr = new int[80000];
+		for(int i=0;i<arr.length;i++){
+			arr[i] = (int)(Math.random()*80000); // 生成一个[0,80000]的数
+		}
+//		System.out.println("排序前");
+		
+		Date date1 = new Date();
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String date1Str = simpleDateFormat.format(date1);
+		System.out.println("排序前的时间为："+date1Str);
+		
 		int[] temp = new int[arr.length];  // 归并排序需要额外一个空间
 		
 		mergeSort(arr, 0, arr.length-1, temp);
 		
-		System.out.println("归并排序后="+Arrays.toString(arr));
+		Date date2 = new Date();
+		String date2Str = simpleDateFormat.format(date2);
+		System.out.println("排序后的时间为："+date2Str);
+		
+//		System.out.println("归并排序后="+Arrays.toString(arr));
 		
 	}
 	
@@ -97,7 +116,7 @@ public class MergeSort {
 		int tempLeft = left;
 		
 		// 打印合并的顺序
-		System.out.println("tempLeft="+tempLeft + "right=" + right);
+//		System.out.println("tempLeft="+tempLeft + "right=" + right);
 		
 		while(tempLeft <= right){
 			arr[tempLeft] = temp[t];
