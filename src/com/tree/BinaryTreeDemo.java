@@ -11,19 +11,65 @@ package com.tree;
  * 
  * */
 
-public class BinaryTree {
+public class BinaryTreeDemo {
 	
 	public static void main(String[] args) {
+		
+		BinaryTree binaryTree = new BinaryTree();
+		
+		HeroNode root = new HeroNode(1,"宋江");
+		HeroNode node2 = new HeroNode(2,"吴用");
+		HeroNode node3 = new HeroNode(3,"卢俊义");
+		HeroNode node4 = new HeroNode(4,"林冲");
+		
+		// 练习题目
+		HeroNode node5 = new HeroNode(5,"关胜");
+		
+		
+		/* -- 基本测试
+		// 说明，我们先手动创建该二叉树，后面我们学递归的方式创建二叉树
+		root.setLeft(node2);
+		root.setRight(node3);
+		node3.setRight(node4);
+		binaryTree.setRoot(root);
+		
+		// 测试
+		System.out.println("前序遍历");  // 1，2，3，4
+		binaryTree.preOrder();
+		
+		System.out.println("中序遍历");
+		binaryTree.fixOrder();
+		
+		System.out.println("后续遍历");
+		binaryTree.postOrder();
+		*/
+		
+		
+		// 练习题解答
+		root.setLeft(node2);
+		root.setRight(node3);
+		node3.setRight(node4);
+		node3.setLeft(node5);
+		binaryTree.setRoot(root);
+		
+		System.out.println("前序遍历");  // 1，2，3，5，4
+		binaryTree.preOrder();
+		
+		System.out.println("中序遍历"); // 2，1，5，3，4
+		binaryTree.fixOrder();
+		
+		System.out.println("后续遍历"); // 2，5，4，3，1
+		binaryTree.postOrder();
 		
 		
 		
 	}
-	
+	 
 }
 
 
 // 定义一颗二叉树
-class BTree{
+class BinaryTree{
 	private HeroNode root;
 	
 	public void setRoot(HeroNode root){
