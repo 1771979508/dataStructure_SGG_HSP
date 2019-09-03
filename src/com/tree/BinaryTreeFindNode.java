@@ -35,7 +35,58 @@ public class BinaryTreeFindNode {
 	
 	public static void main(String[] args) {
 		
+		BinaryTreeForFind binaryTree = new BinaryTreeForFind();
 		
+		HeroNodeForFind root = new HeroNodeForFind(1,"宋江");
+		HeroNodeForFind node2 = new HeroNodeForFind(2,"吴用");
+		HeroNodeForFind node3 = new HeroNodeForFind(3,"卢俊义");
+		HeroNodeForFind node4 = new HeroNodeForFind(4,"林冲");
+		HeroNodeForFind node5 = new HeroNodeForFind(5,"关胜");
+		
+		binaryTree.setRoot(root);
+		root.setLeft(node2);
+		root.setRight(node3);
+		node3.setRight(node4);
+		node3.setLeft(node5);
+		
+		
+		// 开始测试查找的方法
+		// 前序遍历查找
+		System.out.println("开始前序遍历的查找");
+		HeroNodeForFind resPreNode = binaryTree.preOrderSearch(5);
+		if(resPreNode != null){
+			System.out.printf("找到了，信息为 no=%d name=%s",resPreNode.getNo(),resPreNode.getName());
+			System.out.println();
+		}else{
+			System.out.printf("没有找到no= %d 的英雄",5);
+			System.out.println();
+		}
+		
+		System.out.println("==============我是分割线============");
+		
+		// 中序遍历查找
+		System.out.println("开始中序遍历的查找");
+		HeroNodeForFind resInfixNode = binaryTree.infixOrderSearch(5);
+		if(resInfixNode != null){
+			System.out.printf("找到了，信息为 no=%d name=%s",resInfixNode.getNo(),resInfixNode.getName());
+			System.out.println();
+		}else{
+			System.out.printf("没有找到no= %d 的英雄",5);
+			System.out.println();
+		}
+		
+		System.out.println("==============我是分割线============");
+		
+		// 后序遍历查找
+		System.out.println("开始后序遍历的查找");
+		HeroNodeForFind resPostOrderNode = binaryTree.postOrderSearch(5);
+		if(resPostOrderNode != null){
+			System.out.printf("找到了，信息为 no=%d name=%s",resPostOrderNode.getNo(),resPostOrderNode.getName());
+			System.out.println();
+		}else{
+			System.out.printf("没有找到no= %d 的英雄",5);
+			System.out.println();
+		}
 		
 	}
 	
@@ -43,9 +94,9 @@ public class BinaryTreeFindNode {
 
 //定义一颗二叉树
 class BinaryTreeForFind{
-	private BinaryTreeForFind root;
+	private HeroNodeForFind root;
 	
-	public void setRoot(BinaryTreeForFind root){
+	public void setRoot(HeroNodeForFind root){
 		this.root = root;
 	}
 	
@@ -61,13 +112,13 @@ class BinaryTreeForFind{
 	// 中序遍历
 	public  void fixOrder(){
 		if(this.root != null){
-			this.root.fixOrder();
+			this.root.infixOrder();
 		}else{
 			System.out.println("二叉树为空，无法遍历");
 		}
 	}
 	
-	// 后续遍历
+	// 后序遍历
 	public  void postOrder(){
 		if(this.root != null){
 			this.root.postOrder();
@@ -102,6 +153,8 @@ class BinaryTreeForFind{
 			return null;
 		}
 	}
+	
+	
 	
 	
 }
@@ -183,6 +236,7 @@ class HeroNodeForFind{
 		if(this.right != null){
 			this.right.postOrder();
 		}
+		
 		// 输出父节点
 		System.out.println(this);
 	}
@@ -195,6 +249,7 @@ class HeroNodeForFind{
 	 * @return		如果找到就返回该Node，如果没有找到返回null
 	 */
 	public HeroNodeForFind preOrderSearch(int no){
+		System.out.println("前序遍历查找统计");
 		// 比较当前节点是不是
 		if(this.no == no){
 			return this;
@@ -228,6 +283,7 @@ class HeroNodeForFind{
 		if(resNode != null){
 			return resNode;
 		}
+		System.out.println("中序遍历查找统计");
 		// 如果找到，则返回；如果没有找到，就和当前节点比较，如果是则返回当前节点
 		if(this.no == no){
 			return this;
@@ -246,7 +302,7 @@ class HeroNodeForFind{
 		if(this.left != null){
 			resNode = this.left.postOrderSearch(no);
 		}
-		if(this.left != null){
+		if(resNode != null){
 			return resNode;
 		}
 		if(this.right != null){
@@ -256,6 +312,7 @@ class HeroNodeForFind{
 		if(resNode != null){
 			return resNode;
 		}
+		System.out.println("后序遍历查找统计");
 		// 如果左子树都没有找到，就比较当前节点是不是
 		if(this.no == no){
 			return this;
