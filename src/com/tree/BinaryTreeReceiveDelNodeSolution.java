@@ -44,43 +44,14 @@ public class BinaryTreeReceiveDelNodeSolution {
 		node3.setLeft(node5);
 		
 		
-		// 开始测试查找的方法
-		// 前序遍历查找
-		System.out.println("开始前序遍历的查找");
-		HeroNodeForDelNode resPreNode = binaryTreeForDelNode.preOrderSearch(5);
-		if(resPreNode != null){
-			System.out.printf("找到了，信息为 no=%d name=%s",resPreNode.getNo(),resPreNode.getName());
-			System.out.println();
-		}else{
-			System.out.printf("没有找到no= %d 的英雄",5);
-			System.out.println();
-		}
+		// 测试删除节点的代码
+		System.out.println("删除前，前序遍历");
+		binaryTreeForDelNode.preOrder(); // 1,2,3,5,4
+		//进行删除操作
+		binaryTreeForDelNode.delNode(5);
+		System.out.println("删除后，前序遍历");
+		binaryTreeForDelNode.preOrder();
 		
-		System.out.println("==============我是分割线============");
-		
-		// 中序遍历查找
-		System.out.println("开始中序遍历的查找");
-		HeroNodeForDelNode resInfixNode = binaryTreeForDelNode.infixOrderSearch(5);
-		if(resInfixNode != null){
-			System.out.printf("找到了，信息为 no=%d name=%s",resInfixNode.getNo(),resInfixNode.getName());
-			System.out.println();
-		}else{
-			System.out.printf("没有找到no= %d 的英雄",5);
-			System.out.println();
-		}
-		
-		System.out.println("==============我是分割线============");
-		
-		// 后序遍历查找
-		System.out.println("开始后序遍历的查找");
-		HeroNodeForDelNode resPostOrderNode = binaryTreeForDelNode.postOrderSearch(5);
-		if(resPostOrderNode != null){
-			System.out.printf("找到了，信息为 no=%d name=%s",resPostOrderNode.getNo(),resPostOrderNode.getName());
-			System.out.println();
-		}else{
-			System.out.printf("没有找到no= %d 的英雄",5);
-			System.out.println();
-		}
 		
 	}
 	
@@ -93,6 +64,23 @@ class BinaryTreeForDelNode{
 	public void setRoot(HeroNodeForDelNode root){
 		this.root = root;
 	}
+	
+	
+	// 删除节点
+	public void delNode(int no){
+		if(root != null){
+			// 如果只有一个root节点，这里立即判断root是不是就是要删除的节点
+			if(root.getNo() == no){
+				root = null;
+			}else{
+				// 递归删除
+				root.delNode(no);
+			}
+		}else{
+			System.out.println("空树，不能删除~");
+		}
+	}
+	
 	
 	// 前序遍历
 	public  void preOrder(){
@@ -148,9 +136,6 @@ class BinaryTreeForDelNode{
 		}
 	}
 	
-	
-	
-	
 }
 
 
@@ -192,6 +177,33 @@ class HeroNodeForDelNode{
 	public String toString() {
 		return "HeroNodeForFind [no=" + no + ", name=" + name + "]";
 	}
+	
+	// 递归删除节点
+	// 1.如果删除的节点是叶子节点，则删除该节点
+	// 2.如果删除的节点是非叶子节点，则删除该子树
+	public void delNode(int no){
+		 //2.如果当前节点的左子节点不为空，并且左子节点就是要删除节点，就将this.left=null;并且就返回(结束递归删除)
+		if(this.left != null && this.left.no == no){
+			this.left = null;
+			return;
+		}
+		//3.如果当前节点的子节点不为空，并且右子节点就是要删除节点，就将this.right=null;并且就返回(结束递归删除)
+		if(this.right != null && this.right.no == no){
+			this.right = null;
+			return;
+		}
+		//4.如果第2步和第3步没有删除节点，那么我们就需要向左子树进行递归删除
+		// 这里需要注意的是：不应直接return进行返回，因为递归左子树可能有没有找到的情况
+		if(this.left != null){
+			this.left.delNode(no);
+		}
+		//5.如果第4步也没有删除节点，则应当向右子树进行递归删除
+		if(this.right != null){
+			this.right.delNode(no);
+		}
+	}
+	
+	
 	
 	// 编写前序遍历的方法
 	public void preOrder(){
