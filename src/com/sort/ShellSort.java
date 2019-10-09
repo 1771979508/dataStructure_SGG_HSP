@@ -1,6 +1,8 @@
 package com.sort;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 
 /**
 *	@author 作者 Joker青
@@ -10,13 +12,36 @@ public class ShellSort {
 	
 	public static void main(String[] args) {
 		
-		int[] arr = {8,9,1,7,2,3,5,4,6,0};
+//		int[] arr = {8,9,1,7,2,3,5,4,6,0};
+		
+		
+		int[] arr = new int[8000000];
+		for(int i=0;i<arr.length;i++){
+			arr[i] = (int) (Math.random()*8000000);  // 生成一个[0,8000000]的数据元素
+		}
+		System.out.println("希尔排序前");
+		Date date1 = new Date();
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String date1Str = simpleDateFormat.format(date1);
+		System.out.println("希尔排序的时间是："+date1Str);
+		
+		
 //		shellSort(arr);
 		// 优化后的希尔排序
 		shellSortOptimize(arr);
 		
+		System.out.println("希尔排序后");
+		Date date2 = new Date();
+		String dateStr2 = simpleDateFormat.format(date2);
+		System.out.println("希尔排序后的时间为：" + dateStr2);
+		
 		// 交换位置之后的排序
 		shellSortMoveOptimize(arr);
+		
+		System.out.println("希尔排序后");
+		Date date3 = new Date();
+		String dateStr3 = simpleDateFormat.format(date3);
+		System.out.println("堆排序后的时间为：" + dateStr3);
 		
 	}
 	
@@ -36,7 +61,7 @@ public class ShellSort {
 				}
 			}
 		}
-		System.out.println("希尔排序1轮后="+Arrays.toString(arr));
+//		System.out.println("希尔排序1轮后="+Arrays.toString(arr));
 		
 		
 		// 希尔排序的第1轮
@@ -52,7 +77,7 @@ public class ShellSort {
 				}
 			}
 		}
-		System.out.println("希尔排序2轮后="+Arrays.toString(arr));
+//		System.out.println("希尔排序2轮后="+Arrays.toString(arr));
 		
 		// 希尔排序的第3轮
 		// 因为第3轮排序，是将10个数据分成了 2/2 = 1 组
@@ -67,7 +92,7 @@ public class ShellSort {
 				}
 			}
 		}
-		System.out.println("希尔排序3轮后="+Arrays.toString(arr));
+//		System.out.println("希尔排序3轮后="+Arrays.toString(arr));
 		
 	}
 	
@@ -87,7 +112,7 @@ public class ShellSort {
 					}
 				}
 			}
-			System.out.println("希尔排序"+(++count)+"轮后="+Arrays.toString(arr));
+//			System.out.println("希尔排序"+(++count)+"轮后="+Arrays.toString(arr));
 		}
 	}
 	

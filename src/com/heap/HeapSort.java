@@ -1,6 +1,8 @@
 package com.heap;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 
 /**
 *	@author 作者 Joker青
@@ -11,15 +13,29 @@ public class HeapSort {
 	public static void main(String[] args) {
 		
 		// 要求将数组进行升序排序
-		int arr[] = {4,6,8,5,9};
-		heapSort(arr);
+//		int arr[] = {4,6,8,5,9};
 		
+		// 测试大数据量下的排序情况
+		int[] arr = new int[8000000];
+		for(int i=0;i<arr.length;i++){
+			arr[i] = (int) (Math.random()*8000000);  // 生成一个[0,8000000]的数据元素
+		}
+		System.out.println("堆排序前");
+		Date date1 = new Date();
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String date1Str = simpleDateFormat.format(date1);
+		System.out.println("堆排序的时间是："+date1Str);
+		heapSort(arr);
+		System.out.println("堆排序后");
+		Date date2 = new Date();
+		String dateStr2 = simpleDateFormat.format(date2);
+		System.out.println("堆排序后的时间为：" + dateStr2);
 	}
 	
 	// 编写一个堆排序的方法
 	public static void heapSort(int arr[]){
 		int temp = 0;
-		System.out.println("堆排序！！");
+//		System.out.println("堆排序！！");
 		
 		// 先进行分步实现
 //		adjustHeap(arr,1,arr.length);
@@ -33,7 +49,7 @@ public class HeapSort {
 		for(int i=arr.length/2-1;i>=0;i--){
 			adjustHeap(arr, i, arr.length);   // 得到的是已经将最大的元素放置到堆顶，即根节点
 		}
-		System.out.println(Arrays.toString(arr));
+//		System.out.println(Arrays.toString(arr));
 		
 		// 2.将堆顶元素与末尾元素交换，将最大元素 “沉” 到数组末端
 		// 3.重新调整结构，使其满足堆定义，然后继续交换堆顶元素与当前末尾元素，【反复执行调整和交换】步骤，直到整个序列有序
@@ -49,7 +65,7 @@ public class HeapSort {
 			adjustHeap(arr, 0, j);  // 从上往下走，所以从0开始
 			
 		}
-		System.out.println(Arrays.toString(arr));
+//		System.out.println(Arrays.toString(arr));
 		
 	}
 	
