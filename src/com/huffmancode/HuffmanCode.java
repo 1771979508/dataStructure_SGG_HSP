@@ -20,7 +20,13 @@ import java.util.Map;
  * 		四、可以通过List创建对应的赫夫曼树
  * 
  *  
- * 	
+ * 	在已经生成赫夫曼树的基础上:拿到赫夫曼编码就能还原出原来的数据
+ * 		1.生成赫夫曼树对应的赫夫曼编码，如下表：
+ * 			=01 a=100 d=11000 u=11001 e=1110 v=11011 i=101 y=11010 j=0010 k=1111 l=000 o=0011
+ * 		2.使用赫夫曼编码来生成赫夫曼编码数据，即按照上面的赫夫曼编码，
+ * 			将"i like like like java do you like a java" 字符串
+ * 			生成对应的编码数据，形式如下
+ * 		1010100010111.......共133位   与没有压缩之前(359)对比很明显节省了不少的空间
  * 
  * 
  * 
@@ -44,9 +50,59 @@ public class HuffmanCode {
 		System.out.println("前序遍历");
 		
 		// 前序遍历赫夫曼树
-		preOrder(huffmanTreeRoot);
+		huffmanTreeRoot.preOrder();
 		
+		// 测试是否生成了赫夫曼编码
+		Map<Byte,String> huffmanCodes = getCodes(huffmanTreeRoot);
+		System.out.println("生成的赫夫曼编码表"+huffmanCodes);
 		
+	}
+	
+	// 生成赫夫曼树对应的赫夫曼编码
+	// 思路：
+		//1.将赫夫曼编码表存放在Map<Byte,String>
+			// 空格：32=>01 i:97=>100
+	static Map<Byte,String> huffmanCodes = new HashMap<Byte,String>();
+	// 2.在生成赫夫曼编码表时，需要存储拼接叶子节点的路径
+	static StringBuilder stringBuilder = new StringBuilder();
+	
+	// 为了调用方便，我们重载getCodes
+	private static Map<Byte,String> getCodes(Node root){
+		if(root == null){
+			return null;
+		}
+		// 处理root 的左子树
+		getCodes(root.left,"0",stringBuilder);
+		// 处理root的右子树
+		getCodes(root.right,"1",stringBuilder);
+		return huffmanCodes;
+	}
+	
+	
+	
+	/**
+	 * 功能：将传入的node节点的所有叶子节点的赫夫曼编码得到，并放入到huffmanCodes集合
+	 * @param node	传入节点 - 根节点
+	 * @param code	路径 - 左子节点为0，右子节点为1
+	 * @param stringBuffer	叶子节点路径
+	 */
+	private static void getCodes(Node node,String code,StringBuilder stringBuilder){
+		StringBuilder stringBuilder2 = new StringBuilder(stringBuilder);
+		// 将code加入到stringBuilder2
+		stringBuilder2.append(code);
+		if(node != null){  // 如果node==null不处理
+			// 判断当前node是叶子节点还是非叶子节点
+			if(node.data == null){  // 非叶子节点=>如何理解:因为它是新构造出来的节点(即parent节点)，parent节点不可能为叶子节点
+				// 递归处理
+				// 向左递归
+				getCodes(node.left, "0", stringBuilder2);
+				// 向右递归
+				getCodes(node.right, "1", stringBuilder2);
+			}else{  // 说明是y一个叶子节点
+				// 就表示找到某个叶子节点的最后,存入赫夫曼编码表中
+				huffmanCodes.put(node.data,stringBuilder2.toString());
+			}
+		}
 	}
 	
 	// 前序遍历赫夫曼树
