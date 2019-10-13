@@ -19,7 +19,7 @@ import java.util.Map;
  * 		三、编写一个方法，将准备构建赫夫曼树的Node节点放到List，形式{Node[data=97,weight=5],Node[data=8,weight=5]....}
  * 		四、可以通过List创建对应的赫夫曼树
  * 
- * 
+ *  
  * 	
  * 
  * 
