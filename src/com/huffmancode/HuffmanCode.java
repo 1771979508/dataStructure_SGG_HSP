@@ -42,6 +42,13 @@ public class HuffmanCode {
 		byte[] bytes = content.getBytes();  // 得到对应的字符数组和字符对应的ASCII编码值
 //		System.out.println(bytes.length);  // 40
 		
+		byte[] huffmanCodesBytes = huffmanZip(bytes);
+		System.out.println("压缩后的结果是："+Arrays.toString(huffmanCodesBytes) + "长度= "+huffmanCodesBytes.length);
+		
+		/*
+		 * 
+		 // 分步操作：
+		 
 		ArrayList<Node> nodes = getNodes(bytes);
 		System.out.println("nodes="+nodes);
 		
@@ -64,7 +71,56 @@ public class HuffmanCode {
 		
 		// 发送huffmanCodeBytes数组
 		
+		*/
+		
 	}
+	
+	// 使用一个方法，将前面的方法封装起来，便于我们的调用
+	/**
+	 * 
+	 * @param bytes		原始的字符串对应的字节数组
+	 * @return			是经过 赫夫曼编码处理后的字节数组(压缩后的数组)
+	 */
+	private static byte[] huffmanZip(byte[] bytes){
+		ArrayList<Node> nodes = getNodes(bytes);
+		//根据 nodes 创建的赫夫曼树
+		Node huffmanTreeRoot = createHuffmanTree(nodes);
+		// 对应的赫夫曼编码(根据 赫夫曼树)
+		Map<Byte,String> huffmanCodes = getCodes(huffmanTreeRoot);
+		// 根据生成的赫夫曼编码，压缩得到压缩后的赫夫曼编码字节数组
+		byte[] huffmanCodeBytes = zip(bytes, huffmanCodes);
+		return huffmanCodeBytes;
+	}
+	
+	/*
+	 * 		解码过程：
+	 * 			1.将huffmanCodesBytes [-88,-65,-56,....]
+	 * 			重新先转成 赫夫曼编码对应的二进制的字符串 "1010100010111...."
+	 * 			2.赫夫曼编码对应的二进制的字符串 "1010100010111..."=>对照 赫夫曼编码 还原成原来的字符串 => "i like like like java do you like a java"
+	 * 
+	 * */
+	/**
+	 * 将byte转成一个二进制的字符串
+	 * @param flag	是标志是否需要补高为 如果是true，表示需要补高位，如果是false表示不补
+	 * @param b		传入的byte
+	 * @return		是该b对应的二进制的字符串(注意是按补码返回)
+	 */
+	private static String byteToBitString(boolean flag,byte b){
+		// 使用临时变量保存b
+		int temp = b;
+		// 如果是正数我们需要补高位
+		if(flag){
+			temp |= 256;  // 按位或256    1 000 0000 | 0000 0001  => 1 0000 0001
+		}
+		String str = Integer.toBinaryString(temp); // 返回的是temp对应的二进制的补码
+		if(flag){
+			return str.substring(str.length() - 8);
+		}else{
+			return str;
+		}
+	}
+	
+	
 	
 	// 编写一个方法，将字符串对应的byte[] 数组，通过生成的赫夫曼编码表，返回一个赫夫曼编码 压缩后的byte[]
 	/**
