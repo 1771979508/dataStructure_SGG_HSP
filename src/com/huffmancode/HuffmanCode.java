@@ -45,6 +45,12 @@ public class HuffmanCode {
 		byte[] huffmanCodesBytes = huffmanZip(bytes);
 		System.out.println("压缩后的结果是："+Arrays.toString(huffmanCodesBytes) + "长度= "+huffmanCodesBytes.length);
 		
+		// 测试byteToBitString方法
+//		System.out.println(byteToBitString((byte)1));
+		byte[] sourceBytes = decode(huffmanCodes, huffmanCodesBytes);
+		System.out.println("原来的字符串="+new String(sourceBytes));
+		
+		
 		/*
 		 * 
 		 // 分步操作：
@@ -91,6 +97,71 @@ public class HuffmanCode {
 		byte[] huffmanCodeBytes = zip(bytes, huffmanCodes);
 		return huffmanCodeBytes;
 	}
+	
+	
+	// 解码代码
+	/**
+	 * 
+	 * @param huffmanCodes		赫夫曼编码表map
+	 * @param huffmanBytes		赫夫曼编码得到的字节数组
+	 * @return					原来的字符串对应的数组
+	 */
+	private static byte[] decode(Map<Byte,String> huffmanCodes,byte[] huffmanBytes){
+		// 1.先得到huffmanBytes 对应的二进制的字符串，形式1010100010111...
+		StringBuilder stringBuilder = new StringBuilder();
+		// 将byte数组转成二进制的字符串
+		for(int i=0;i<huffmanBytes.length;){
+			byte b = huffmanBytes[i];
+			// 判断是不是最后一个字节
+			boolean flag = (i == huffmanBytes.length - 1);
+			stringBuilder.append(byteToBitString(!flag, b));
+		}
+		
+		// 把字符安装指定的赫夫曼编码进行解码
+		//把赫夫曼编码表j进行调换，因为反响查询a->100 100->a
+		Map<String, Byte> map = new HashMap<String,Byte>();
+		for(Map.Entry<Byte,String> entry : huffmanCodes.entrySet()){
+			map.put(entry.getValue(),entry.getKey());
+		}
+		// 输出map
+		//System.out.println("map="+map);  // {000=108(i) 01=32(空格) 100=97(l) 101=105(k) ......}
+		
+		
+		// 创建集合，存放byte
+		ArrayList list = new ArrayList<>();
+		// i可以理解成就是索引，扫描stringBuilder
+		for(int i=0;i<stringBuilder.length();i++){
+			int count = 1;  // 小的计数器
+			boolean flag = true;
+			Byte b = null;
+			while(flag){
+				// 1010100010111...
+				// 递增的取出 key 1
+				String key = stringBuilder.substring(i,i+count); // i不动，让count移动，直到匹配到mao中的字节
+				b = map.get(key);
+				if(b == null){  // 说明没有匹配到
+					count++;
+				}else{
+					// 匹配到
+					flag = false;
+				}
+			}
+			list.add(b);
+			i+=count;	// i直接移动到 count
+		}
+		
+		// 当for循环结束后，我们list中就存放了所有的字符 "i like like like java do you like a java"
+		// 把list 中的数据放入到byte[] 并返回
+		byte b[] = new byte[list.size()];
+		for(int i=0;i<b.length;i++){
+			b[i] = (byte) list.get(i);
+		}
+		
+		return b;
+	}
+	
+	
+	
 	
 	/*
 	 * 		解码过程：
