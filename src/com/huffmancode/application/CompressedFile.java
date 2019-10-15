@@ -36,7 +36,7 @@ public class CompressedFile {
 		try{
 			//创建文件的输入流
 			FileInputStream is = new FileInputStream(srcFile);
-			// 创建一个和源文件大小一样的byte[]
+			// 创建一个和源文件大小一样的byte[] 
 			byte[] b = new byte[is.available()];
 			// 读取文件
 			is.read();
