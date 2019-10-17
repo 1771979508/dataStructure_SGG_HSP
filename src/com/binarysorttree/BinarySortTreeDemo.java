@@ -172,7 +172,7 @@ class Node{
 	 * @return			返回的是要删除的节点的父节点，如果没有就返回null
 	 */
 	public Node searchParent(int value){
-		// 如果当前节点就是要删除的节点的父节点，就返回
+		// 如果当前节点就是要删除的节点的父节点，就返回 
 		if((this.left != null && this.left.value == value )  || (this.right != null && this.right.value == value)){
 			return this;
 		}else{
