@@ -3,11 +3,39 @@ package com.binarysorttree;
 *	@author 作者 Joker青
 *	@version 创建时间：2019年10月17日 下午7:19:46	
 */
+
+
+/*
+ * 		二叉树删除节点可能遇到的集中情况：
+ * 			一、第一种情况 - 删除叶子节点
+ * 				(1)需要去找到要删除的节点，targetNode
+ * 				(2)找到targetNode的 父节点 parent
+ * 				(3)确定targetNode是parent的左子节点还是右子节点
+ * 				(4)根据前面的情况来应对删除
+ * 				左子节点：parent.left = null
+ * 				右子节点：parent.right = null
+ * 			
+ * 			二、第二种情况 - 删除只有y一颗子树的节点，比如1
+ * 				(1)需要去找到要删除的节点，targetNode
+ * 				(2)找到targetNode的 父节点 parent
+ * 				(3)确定targetNode的子节点是左子节点还是右子节点
+ * 				(4)targetNode是parent的左子节点还是右子节点
+ * 				(5)如果targetNode是左子节点
+ * 					5.1如果targetNode
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * */
+
+
 public class BinarySortTreeDemo {
 	
 	public static void main(String[] args) {
 		
-		int[] arr = {7,3,10,12,5,1,9};
+		int[] arr = {7,3,10,12,5,1,9,2};
 		BinarySortTree binarySortTree = new BinarySortTree();
 		// 循环添加节点到二叉排序树
 		for(int i=0;i<arr.length;i++){
@@ -17,6 +45,13 @@ public class BinarySortTreeDemo {
 		System.out.println("中序遍历二叉排序树");
 		binarySortTree.infixOrder();  // 1 3 5 7 9 10 12
 		
+		
+		// 测试删除叶子节点2
+		binarySortTree.delNode(2);
+		System.out.println("删除节点后");
+		binarySortTree.infixOrder();
+		
+		
 	}
 	
 }
@@ -25,6 +60,57 @@ public class BinarySortTreeDemo {
 // 创建二叉排序
 class BinarySortTree{
 	private Node root;
+	
+	// 查找要删除的节点
+	public Node search(int value){
+		if(root == null){
+			return null;
+		}else{
+			return root.search(value);
+		}
+	}
+	
+	// 查找父节点
+	public Node searchParent(int value){
+		if(root == null){
+			return null;
+		}else{
+			return root.searchParent(value);
+		}
+	}
+	
+	// 删除节点
+	public void delNode(int value){
+		if(root == null){
+			return;
+		}else{
+			// 1.需求先去找到要删除的节点 targetNode
+			Node targetNode = search(value);
+			// 如果没有找到要删除的节点
+			if(targetNode == null){
+				return;
+			}
+			// 如果我们发现当前这颗二叉排序树只有一个节点
+			if(root.left == null && root.right == null){
+				root = null;
+				return;
+			}
+			// 去找到targetNode的父节点
+			Node parent = searchParent(value);
+			// 如果要删除的节点是叶子节点
+			if(targetNode.left == null && targetNode.right == null){
+				// 判断targetNode 是父节点的左子节点，还是右子节点
+				if(parent.left != null && parent.left.value == value){	// 是左子节点
+					parent.left = null;
+				}else if(parent.right != null && parent.right.value == value){
+					parent.right = null;
+				}
+			}
+		}
+	}
+	
+	
+	
 	// 添加节点的方法
 	public void add(Node node){
 		if(root == null){
@@ -87,7 +173,7 @@ class Node{
 	 */
 	public Node searchParent(int value){
 		// 如果当前节点就是要删除的节点的父节点，就返回
-		if(this.left.value == value && this.left != null  || this.right.value == value && this.right != null){
+		if((this.left != null && this.left.value == value )  || (this.right != null && this.right.value == value)){
 			return this;
 		}else{
 			// 如果要查找的值小于当前节点的值，并且当前节点的左子节点不为空
