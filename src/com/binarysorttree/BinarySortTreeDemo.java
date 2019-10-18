@@ -109,7 +109,7 @@ class BinarySortTree{
 		}
 	}
 	
-	
+	// 准备完善删除节点的后两种情况
 	
 	// 添加节点的方法
 	public void add(Node node){
