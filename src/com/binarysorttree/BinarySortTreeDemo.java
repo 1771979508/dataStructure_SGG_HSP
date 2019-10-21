@@ -21,11 +21,19 @@ package com.binarysorttree;
  * 				(3)确定targetNode的子节点是左子节点还是右子节点
  * 				(4)targetNode是parent的左子节点还是右子节点
  * 				(5)如果targetNode是左子节点
- * 					5.1如果targetNode
- * 
- * 
- * 
- * 
+ * 					5.1如果targetNode是parent的左子节点
+ * 						parent.left = targetNode.left
+ * 					5.2如果targetNode是parent的右子节点
+ * 						parent.right = targetNode.right
+ * 				(6)如果targetNode有有子节点
+ * 					6.1如果targetNode是parent的左子节点
+ * 						parent.left = targetNode.right
+ * 					6.2如果targetNode是parent的右子节点
+ * 						parent.right = targetNode.right
+ * 			
+ * 			三、删除有两颗子树的节点(比如7，3，10)
+ * 				
+ * 	
  * 
  * 
  * */
@@ -97,13 +105,32 @@ class BinarySortTree{
 			}
 			// 去找到targetNode的父节点
 			Node parent = searchParent(value);
-			// 如果要删除的节点是叶子节点
+			// 第一种情况：如果要删除的节点是叶子节点
 			if(targetNode.left == null && targetNode.right == null){
 				// 判断targetNode 是父节点的左子节点，还是右子节点
 				if(parent.left != null && parent.left.value == value){	// 是左子节点
 					parent.left = null;
 				}else if(parent.right != null && parent.right.value == value){
 					parent.right = null;
+				}
+			}else if(targetNode.left != null && targetNode.right != null){  // 第三种情况：删除有两颗子树的节点，那么就剩下最后一种情况了
+				
+			}else{  // 删除只有一颗子树的节点
+				// 如果要删除的节点有左子节点
+				if(targetNode.left != null){
+					// 如果targetNode 是 parent 的左子节点
+					if(parent.left.value == value){
+						parent.left = targetNode.left;
+					}else{ // targetNode是parent的右子节点
+						parent.right = targetNode.left;
+					}
+				}else{ // 如果要删除的节点有右子节点
+					// 如果targetNode 是 parent 的左子节点
+					if(parent.left.value == value){
+						parent.left = targetNode.right;
+					}else{  // 如果targetNode 是 parent 的右子节点
+						parent.right = targetNode.right;
+					}
 				}
 			}
 		}
