@@ -146,18 +146,26 @@ class BinarySortTree{
 			}else{  // 删除只有一颗子树的节点
 				// 如果要删除的节点有左子节点
 				if(targetNode.left != null){
-					// 如果targetNode 是 parent 的左子节点
-					if(parent.left.value == value){
-						parent.left = targetNode.left;
-					}else{ // targetNode是parent的右子节点
-						parent.right = targetNode.left;
+					if(parent != null){
+						// 如果targetNode 是 parent 的左子节点
+						if(parent.left.value == value){
+							parent.left = targetNode.left;
+						}else{ // targetNode是parent的右子节点
+							parent.right = targetNode.left;
+						}
+					}else{
+						root = targetNode.left;
 					}
 				}else{ // 如果要删除的节点有右子节点
 					// 如果targetNode 是 parent 的左子节点
-					if(parent.left.value == value){
-						parent.left = targetNode.right;
-					}else{  // 如果targetNode 是 parent 的右子节点
-						parent.right = targetNode.right;
+					if(parent != null){
+						if(parent.left.value == value){
+							parent.left = targetNode.right;
+						}else{  // 如果targetNode 是 parent 的右子节点
+							parent.right = targetNode.right;
+						}
+					}else{
+						root = targetNode.right;
 					}
 				}
 			}
