@@ -32,7 +32,12 @@ package com.binarysorttree;
  * 						parent.right = targetNode.right
  * 			
  * 			三、删除有两颗子树的节点(比如7，3，10)
- * 				
+ * 				(1)需要去找到要删除的节点 targetNode
+ * 				(2)找到targetNode的父节点 parent
+ * 				(3)从targetNode的右子树找到最小的节点
+ * 				(4)用一个临时变量，将最小节点的值保存 temp = 11
+ * 				(5)删除该最小节点
+ * 				(6)targetNode.value = temp
  * 	
  * 
  * 
@@ -87,6 +92,26 @@ class BinarySortTree{
 		}
 	}
 	
+	// 编写节点	
+	// 1.返回以node为根节点的二叉排序树的最小节点的值
+	// 2.删除node为根节点的二叉排序树的最小节点
+	/**
+	 * 
+	 * @param node		传入的节点(当作二叉排序树的根节点)
+	 * @return			返回以node为根节点的二叉排序树的最小节点的值
+	 */
+	public int delRightTreeMin(Node node){
+		Node target = node;
+		// 循环的查找左子节点，就会找到最小值
+		while(target.left != null){
+			target = target.left;
+		}
+		// 这时 target 就指向了最小节点
+		// 删除最小节点
+		delNode(target.value);
+		return target.value;
+	}
+	
 	// 删除节点
 	public void delNode(int value){
 		if(root == null){
@@ -114,6 +139,9 @@ class BinarySortTree{
 					parent.right = null;
 				}
 			}else if(targetNode.left != null && targetNode.right != null){  // 第三种情况：删除有两颗子树的节点，那么就剩下最后一种情况了
+				
+				int minVal = delRightTreeMin(targetNode.right);
+				targetNode.value = minVal;
 				
 			}else{  // 删除只有一颗子树的节点
 				// 如果要删除的节点有左子节点
