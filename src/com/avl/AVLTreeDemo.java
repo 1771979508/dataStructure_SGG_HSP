@@ -20,7 +20,7 @@ public class AVLTreeDemo {
 		System.out.println("中序遍历");
 		avlTree.infixOrder();
 		
-		System.out.println("没有做平衡处理(左旋)前：");
+		System.out.println("做完平衡处理(左旋)前：");
 		System.out.println("树的高度="+avlTree.getRoot().height());
 		
 	}
@@ -187,6 +187,22 @@ class Node{
 		return Math.max(left == null ? 0 : left.height(), right == null ? 0 : right.height()) + 1;
 	}
 	
+	// 左旋转的方法
+	private void leftRotate(){
+		// 	创建新的节点，作为当前根节点的值
+		Node newNode = new Node(value);
+		// 把新的节点的左子树设置成当前节点的左子树
+		newNode.left = left;
+		// 把新的节点的右子树设置成当前节点的右子树的左子树
+		newNode.right = right.left;
+		// 把当前节点的值替换成右子节点的值
+		value = right.value;
+		// 把当前节点的右子树设置成当前节点右子树的右子树
+		right = right.right;
+		// 把当前节点的左子树(左子节点)设置成新的节点
+		left = newNode;
+	}
+	
 	
 	// 查找要删除的节点
 	/**
@@ -261,6 +277,11 @@ class Node{
 				// 递归向右子树添加
 				this.right.add(node);
 			}
+		}
+		
+		// 当添加完一个节点后，如果：（右子树高度 - 左子树高度） > 1，左旋转
+		if(rightHeight() - leftHeight() > 1){
+			leftRotate(); 
 		}
 	}
 	
