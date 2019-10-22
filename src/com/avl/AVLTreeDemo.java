@@ -8,8 +8,10 @@ package com.avl;
 public class AVLTreeDemo {
 	
 	public static void main(String[] args) {
-		
-		int[] arr = {4,3,6,5,7,8};
+		// 左旋转数据
+//		int[] arr = {4,3,6,5,7,8};
+		// 右旋转数据
+		int[] arr = {10,12,8,9,7,6};
 		// 创建一个AVLTree对象
 		AVLTree avlTree = new AVLTree();
 		// 添加节点
@@ -22,6 +24,10 @@ public class AVLTreeDemo {
 		
 		System.out.println("做完平衡处理(左旋)前：");
 		System.out.println("树的高度="+avlTree.getRoot().height());
+		System.out.println("树的左子树高度="+avlTree.getRoot().leftHeight());
+		System.out.println("树的高度="+avlTree.getRoot().rightHeight());
+		// 根节点也发生了变化
+		System.out.println("根节点也发生了变化："+avlTree.getRoot());
 		
 	}
 	
@@ -203,6 +209,16 @@ class Node{
 		left = newNode;
 	}
 	
+	// 右旋转的方法
+	private void rightRotate(){
+		Node newNode = new Node(value);
+		newNode.right = right;
+		newNode.left = left.right;
+		value = left.value;
+		left = left.left;
+		right = newNode;
+	}
+	
 	
 	// 查找要删除的节点
 	/**
@@ -283,6 +299,12 @@ class Node{
 		if(rightHeight() - leftHeight() > 1){
 			leftRotate(); 
 		}
+		
+		// 当添加完一个节点后，如果：（左子树高度 - 右子树高度） > 1，左旋转
+		if(leftHeight() - rightHeight() > 1){
+			rightRotate(); 
+		}
+		
 	}
 	
 	// 中序遍历
