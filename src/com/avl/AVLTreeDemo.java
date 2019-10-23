@@ -5,6 +5,19 @@ package com.avl;
 *	@author 作者 Joker青
 *	@version 创建时间：2019年10月22日 下午9:44:24	
 */
+
+/*
+ * 
+ * 		存在双旋转的情况不满足当前的情况 - 
+ * 			当出现以下条件时应分析是否会有双旋转的情况：
+ * 				1.当符合右旋转的条件时：
+ * 				2.如果它的左子树的右子树高度大于它的左子树高度
+ * 				3.先对当前这个节点的左节点进行左旋转
+ * 				4.在对当前节点进行右旋转的操作即可		
+ * 
+ * 
+ * */
+
 public class AVLTreeDemo {
 	
 	public static void main(String[] args) {
@@ -297,11 +310,30 @@ class Node{
 		
 		// 当添加完一个节点后，如果：（右子树高度 - 左子树高度） > 1，左旋转
 		if(rightHeight() - leftHeight() > 1){
+			// 如果它的右子树的左子树高度大于它的右子树的右子树的高度
+			if(right != null && right.leftHeight() > right.rightHeight()){
+				// 先对右子节点进行右旋转
+				right.rightRotate();
+				// 然后再对当前节点进行左旋转
+				leftRotate();
+			}
+			// 否则直接进行左旋即可
 			leftRotate(); 
+			
+			// 返回  - 避免重复
+			return;
 		}
 		
-		// 当添加完一个节点后，如果：（左子树高度 - 右子树高度） > 1，左旋转
+		// 当添加完一个节点后，如果：（左子树高度 - 右子树高度） > 1，右旋转
 		if(leftHeight() - rightHeight() > 1){
+			// 如果它的左子树的右子树高度大于它的左子树的高度
+			if(left != null && left.rightHeight() > left.leftHeight()){
+				// 先对当前节点的左节点(左子树) -> 左旋转
+				left.leftRotate();
+				// 再对当前节点进行右旋转
+				rightRotate();
+			}
+			// 否则直接进行右旋转即可
 			rightRotate(); 
 		}
 		
