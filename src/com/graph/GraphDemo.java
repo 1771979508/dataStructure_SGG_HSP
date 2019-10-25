@@ -9,9 +9,10 @@ import java.util.Arrays;
 */
 public class GraphDemo {
 	
-	private ArrayList<String> vertexList;  // 存储顶点集合
+	private static ArrayList<String> vertexList;  // 存储顶点集合
 	private int[][] edges; // 储存图对应的邻结矩阵
 	private int numOfEdges;  // 表示边的数目
+	private boolean[] isVisited;  // 记录某个节点是否被访问过
 	
 	public static void main(String[] args) {
 		// 测试创建是否成功
@@ -26,13 +27,15 @@ public class GraphDemo {
 		// 添加边
 		// A-B A-C B-C B-D B-E
 		graphDemo.insertEdge(0, 1, 1); //A-B  -  表示A与B能相连
-		graphDemo.insertEdge(0, 2, 1); //A-B  -  表示A与B能相连
-		graphDemo.insertEdge(1, 2, 1); //A-B  -  表示A与B能相连
-		graphDemo.insertEdge(1, 3, 1); //A-B  -  表示A与B能相连
-		graphDemo.insertEdge(1, 4, 1); //A-B  -  表示A与B能相连
+		graphDemo.insertEdge(0, 2, 1); //A-C  -  表示A与B能相连
+		graphDemo.insertEdge(1, 2, 1); //B-C  -  表示A与B能相连
+		graphDemo.insertEdge(1, 3, 1); //B-D  -  表示A与B能相连
+		graphDemo.insertEdge(1, 4, 1); //B-E  -  表示A与B能相连
 		
 		// 显示邻阶矩阵
 		graphDemo.showGraph();
+		
+		System.out.println(vertexList);
 		
 	}
 	
@@ -42,6 +45,7 @@ public class GraphDemo {
 		edges = new int[n][n];
 		vertexList = new ArrayList<>(n);
 		numOfEdges = 0;
+		isVisited = new boolean[n];
 	}
 	
 	// 显示图对应的矩阵
@@ -50,6 +54,31 @@ public class GraphDemo {
 			System.out.println(Arrays.toString(link));
 		}
 		System.out.println();
+	}
+	
+	// 得到第一个邻接节点的下标w
+	/**
+	 * 
+	 * @param index		要查找节点的下标
+	 * @return			如果存在就返回对应的下标，否则就返回-1
+	 */
+	public int getFirstNeighbor(int index){
+		for(int j=0;j<vertexList.size();j++){
+			if(edges[index][j] > 0){
+				return j;
+			}
+		}
+		return -1;
+	}
+	
+	// 根据前一个邻接节点的下标来获取下一个邻接节点
+	public int getNextNeighbor(int v1,int v2){
+		for(int j=v2+1;j<vertexList.size();j++){
+			if(edges[v1][j] > 0){
+				return j;
+			}
+		}
+		return -1;
 	}
 	
 	// 图中常用的方法
