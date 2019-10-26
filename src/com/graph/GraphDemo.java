@@ -35,7 +35,10 @@ public class GraphDemo {
 		// 显示邻阶矩阵
 		graphDemo.showGraph();
 		
-		System.out.println(vertexList);
+//		System.out.println(vertexList);
+		
+		System.out.println("图的深度优先遍历：");
+		graphDemo.dfs();
 		
 	}
 	
@@ -80,6 +83,37 @@ public class GraphDemo {
 		}
 		return -1;
 	}
+	
+	// 深度优先遍历算法
+	// i 第一次 就是 0
+	private void dfs(boolean[] isVisted,int i){
+		// 首先我们访问该节点并输出
+		System.out.print(getValueByIndex(i) + "->");
+		// 将节点设置为已经访问
+		isVisted[i] = true;
+		// 查找节点i的第一个邻接节点w
+		int w = getFirstNeighbor(i);
+		// 通过while循环找到已经访问过的邻接节点w  即 w!=-1
+		while(w != -1){  // 说明有邻接节点
+			if(!isVisted[w]){
+				dfs(isVisted,w);
+			}
+			// 如果w节点已经被访问过
+			w = getNextNeighbor(i, w);  // 当前节点i的下一个邻接节点w
+		}
+	}
+	
+	// 如果访问过该节点，则需要进行一个重载，遍历我们所有的节点，并进行dfs
+	// 上面的方法默认是从第一个节点开始的，那么如果要从该节点的下一个节点继续进行重新开始，则需要多写一个重载的方法
+	public void dfs(){
+		// 遍历所有的节点，进行dfs[回溯]
+		for(int i=0;i<getNumOfVertex();i++){
+			if(!isVisited[i]){
+				dfs(isVisited,i);
+			}
+		}
+	}
+	
 	
 	// 图中常用的方法
 	// 返回节点的个数
