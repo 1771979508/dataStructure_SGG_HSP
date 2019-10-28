@@ -127,7 +127,7 @@ public class GraphDemo {
 	// 如果访问过该节点，则需要进行一个重载，遍历我们所有的节点，并进行dfs
 	// 上面的方法默认是从第一个节点开始的，那么如果要从该节点的下一个节点继续进行重新开始，则需要多写一个重载的方法
 	public void dfs(){
-		isVisited = new boolean[5];
+		isVisited = new boolean[vertexList.size()];
 		// 遍历所有的节点，进行dfs[回溯]
 		for(int i=0;i<getNumOfVertex();i++){
 			if(!isVisited[i]){
@@ -173,7 +173,7 @@ public class GraphDemo {
 	
 	// 重载遍历所有的节点，都进行广度优先搜索
 	public void bfs(){
-		isVisited = new boolean[5];
+		isVisited = new boolean[vertexList.size()];
 		for(int i=0;i<getNumOfVertex();i++){
 			if(!isVisited[i]){
 				bfs(isVisited,i);
