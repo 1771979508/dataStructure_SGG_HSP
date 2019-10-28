@@ -2,11 +2,27 @@ package com.graph;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 
 /**
 *	@author 作者 Joker青
 *	@version 创建时间：2019年10月24日 下午10:37:20	
 */
+
+/*
+ * 		广度优先遍历算法步骤：
+ * 			1.访问初始节点v并标记节点v为已访问
+ * 			2.节点v入队列
+ * 			3.当队列非空时，继续执行，否则算法结束
+ * 			4.出队列，取得队头节点u
+ * 			5.查找节点u的第一个邻接节点w
+ * 			6.若节点u的邻接节点w不存在，则转移到步骤3；否则循环执行一下三个步骤：
+ * 				6.1 若节点w尚未被访问，则访问节点w并标记为已访问
+ * 				6.2 节点w入队列
+ * 				6.3 查找节点u的继w邻节点后的下一个邻接节点w，转到步骤6
+ * 
+ * */
+
 public class GraphDemo {
 	
 	private static ArrayList<String> vertexList;  // 存储顶点集合
@@ -39,6 +55,11 @@ public class GraphDemo {
 		
 		System.out.println("图的深度优先遍历：");
 		graphDemo.dfs();
+		System.out.println();
+		System.out.println("图的广度优先遍历：");
+		graphDemo.bfs();
+		
+		
 		
 	}
 	
@@ -48,7 +69,7 @@ public class GraphDemo {
 		edges = new int[n][n];
 		vertexList = new ArrayList<>(n);
 		numOfEdges = 0;
-		isVisited = new boolean[n];
+		
 	}
 	
 	// 显示图对应的矩阵
@@ -106,10 +127,56 @@ public class GraphDemo {
 	// 如果访问过该节点，则需要进行一个重载，遍历我们所有的节点，并进行dfs
 	// 上面的方法默认是从第一个节点开始的，那么如果要从该节点的下一个节点继续进行重新开始，则需要多写一个重载的方法
 	public void dfs(){
+		isVisited = new boolean[5];
 		// 遍历所有的节点，进行dfs[回溯]
 		for(int i=0;i<getNumOfVertex();i++){
 			if(!isVisited[i]){
 				dfs(isVisited,i);
+			}
+		}
+	}
+	
+	// 广度优先
+	// 对一个节点进行广度优先遍历的方法
+	private void bfs(boolean[] isVisted,int i){
+		int u;  // 表示队列的头节点对应的下标
+		int w;	// 邻接节点w
+		// 队列，记录节点访问的顺序
+		LinkedList queue = new LinkedList();
+		// 访问节点，输出节点信息
+		System.out.print(getValueByIndex(i));
+		// 标记为已访问过
+		isVisted[i] = true;
+		// 将节点加入队列
+		queue.addLast(i);
+		
+		while(!queue.isEmpty()){
+			// 取出队列的头节点下标
+			u = (Integer)queue.removeFirst();
+			// 得到第一个邻接节点的下标w
+			w = getFirstNeighbor(u);
+			while(w != -1){  // 说明找到了
+				// 是否访问过
+				if(!isVisted[w]){
+					System.out.print(getValueByIndex(w) + "=>");
+					// 标记已经访问
+					isVisted[w] = true;
+					// 入队
+					queue.addLast(w);
+				}
+				// 以u为前驱点，找w后面的下一个邻节点
+				w = getNextNeighbor(u,w);  // 体现出我们的广度优先
+			}
+		}
+		
+	}
+	
+	// 重载遍历所有的节点，都进行广度优先搜索
+	public void bfs(){
+		isVisited = new boolean[5];
+		for(int i=0;i<getNumOfVertex();i++){
+			if(!isVisited[i]){
+				bfs(isVisited,i);
 			}
 		}
 	}
