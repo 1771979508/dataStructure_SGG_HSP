@@ -34,7 +34,7 @@ public class GreedyAlgorithm {
 		HashSet<String> hashSet1 = new HashSet<String>();
 		hashSet1.add("北京");
 		hashSet1.add("上海");
-		hashSet1.add("天津");
+		hashSet1.add("天津"); 
 		
 		HashSet<String> hashSet2 = new HashSet<String>();
 		hashSet2.add("广州");
