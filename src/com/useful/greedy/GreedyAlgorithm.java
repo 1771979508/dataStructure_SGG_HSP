@@ -37,22 +37,22 @@ public class GreedyAlgorithm {
 		hashSet1.add("天津");
 		
 		HashSet<String> hashSet2 = new HashSet<String>();
-		hashSet1.add("广州");
-		hashSet1.add("北京");
-		hashSet1.add("深圳");
+		hashSet2.add("广州");
+		hashSet2.add("北京");
+		hashSet2.add("深圳");
 		
 		HashSet<String> hashSet3 = new HashSet<String>();
-		hashSet1.add("成都");
-		hashSet1.add("上海");
-		hashSet1.add("杭州");
+		hashSet3.add("成都");
+		hashSet3.add("上海");
+		hashSet3.add("杭州");
 		
 		HashSet<String> hashSet4 = new HashSet<String>();
-		hashSet1.add("上海");
-		hashSet1.add("天津");
+		hashSet4.add("上海");
+		hashSet4.add("天津");
 		
 		HashSet<String> hashSet5 = new HashSet<String>();
-		hashSet1.add("杭州");
-		hashSet1.add("大连");
+		hashSet5.add("杭州");
+		hashSet5.add("大连");
 		
 		// 然后加入到map中
 		broadcasts.put("K1", hashSet1);
