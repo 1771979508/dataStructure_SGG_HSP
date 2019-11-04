@@ -39,6 +39,10 @@ public class PrimAlgorithm {
 		// 输出
 		miniTree.showGraph(graph);
 		
+		System.out.println("即将输出最小生成树：");
+		
+		miniTree.prim(graph, 1);
+		
 	}
 	
 }
@@ -71,6 +75,41 @@ class MiniTree{
 		}
 	}
 	
+	
+	// 编写prim算法，得到最小生成树
+	public void prim(MGraph graph,int v){
+		// visited[] 标记节点(顶点) 是否被访问过
+		int visited[] = new int[graph.verxs];
+		// visited[] 默认元素的值都是0，表示没有访问过
+		
+		// 把当前这个节点标记为已访问
+		visited[v] = 1;
+		// h1和h2 记录两个顶点的下标
+		int h1 = -1;
+		int h2 = -1;
+		int minWeight = 10000; // 将minWeight 初始成一个大数，后面在遍历过程中，会被替换
+		// 先对边进行循环
+		for(int k=1;k<graph.verxs;k++){	// 因为有 graph.verxs顶点，普利姆算法结束后，有graph.verxs-1边
+			// 这个是确定每一次生成的子图，和哪个节点的距离最近
+			for(int i=0;i<graph.verxs;i++){	// i节点表示被访问过的节点
+				for(int j=0;j<graph.verxs;j++){
+					if(visited[i] == 1 && visited[j] == 0 && graph.weight[i][j] < minWeight){
+						// 替换minWeight(寻找已经访问过的节点和未访问过的节点间的权值最小的边)
+						minWeight = graph.weight[i][j];
+						h1 = i;
+						h2 = j;
+					}
+				}
+			}
+			// 找到一条边最小
+			System.out.println("边<"+graph.data[h1]+","+graph.data[h2]+">权值："+minWeight);
+			// 将当前这个节点标记为已经访问
+			visited[h2] = 1;
+			// minWeight 重新设置为最大值 10000
+			minWeight = 10000;
+		}
+		
+	}
 	
 	
 }
