@@ -88,6 +88,9 @@ public class KruskalCase {
 		
 	}
 	
+	
+	
+	
 	// 打印邻接矩阵
 	public void print(){
 		System.out.println("邻接矩阵：");
@@ -131,7 +134,8 @@ public class KruskalCase {
 	}
 	
 	/**
-	 * 
+	 * 功能：获取图中边，放到EData[] 数组中，后面我们需要遍历该数组
+	 * 是通过matrix 邻接j矩阵来获取
 	 * @return		构造边  类似  [EData [start=E, end=F, weight=2]....]
 	 */
 	private EData[] getEdges(){
@@ -148,6 +152,18 @@ public class KruskalCase {
 		return edges;
 	}
 	
+	/**
+	 * 	功能：获取下标为i的顶点的终点(),用于后面判断两个顶点的终点是否相同
+	 * @param ends	数组j就是记录了各个顶点对应的终点是哪个，ends 数组是在遍历过程中，逐步形成
+	 * @param i	表示传入的顶点对应的下标
+	 * @return	返回的就是	下标为i的这个顶点对应的终点的下标
+	 */
+	private int getEnd(int[] ends,int i){
+		while(ends[i] != 0){
+			i = ends[i];
+		}
+		return i;
+	}
 	
 	
 }
