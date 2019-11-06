@@ -88,7 +88,40 @@ public class KruskalCase {
 		
 	}
 	
-	
+	// 使用克鲁斯卡尔算法实现最小生成树
+	public void kruskal(){
+		int index = 0;// 表示最后结果数组的索引
+		int[] ends = new int[edgeNum]; // 用于保存“已有最小生成树” 中的m每个顶点在最小生成树中的终点
+		// 创建结果数组，保存最后的最小生成树
+		EData[] rets = new EData[edgeNum];
+		
+		// 获取图中 所有边的集合，一共有12边
+		EData[] edges = getEdges();
+		
+		// 按照边的权值大小进行排序(从小到大)
+		sortEdges(edges);
+		
+		// 遍历edges数组，将边添加到最小生成树中，判断准备加入的边是否构成了回路，如果没有，就加入rets，否则不能加入
+		for(int i=0;i<edgeNum;i++){
+			// 获取到第i条边的第一个顶点(起点)
+			int p1 = getPosition(edges[i].start); // p1=4
+			// 获取到第i条边的第2个顶点
+			int p2 = getPosition(edges[i].end);	// p2=5
+			
+			// 获取p1这个顶点在已有最小生成树中的终点
+			int m = getEnd(ends,p1);	// m=4
+			// 获取p2这个顶点在已有最小生成树中的终点
+			int n = getEnd(ends, p2);	// m=5
+			
+			// 判断是否构成回路
+			if(m != n){  // 没有构成回路
+				ends[m] = n;	// 设置m 在“已有最小生成树”中的终点 <E,F> [0,0,0,0,5,0,0,0,0,0,0]
+				rets[index++] = edges[i];// 有一条边加入到rets数组
+			}
+			
+		}
+		
+	}
 	
 	
 	// 打印邻接矩阵
