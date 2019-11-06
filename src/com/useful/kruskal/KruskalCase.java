@@ -54,6 +54,7 @@ public class KruskalCase {
 		kruskalCase.sortEdges(edges);
 		System.out.println("排序后="+Arrays.toString(edges));
 		
+		kruskalCase.kruskal();
 		
 	}
 	
@@ -120,6 +121,14 @@ public class KruskalCase {
 			}
 			
 		}
+		
+		// 统计并打印 “最小生成树”，输出 rets
+//		System.out.println("最小生成树为："+Arrays.toString(rets));
+		System.out.println("最小生成树为：");
+		for(int i=0;i<index;i++){
+			System.out.println(rets[i]);
+		}
+		
 		
 	}
 	
@@ -215,7 +224,7 @@ class EData{
 	// 重写toString，便于输出边信息
 	@Override
 	public String toString() {
-		return "EData [start=" + start + ", end=" + end + ", weight=" + weight + "]";
+		return "EData [<" + start + ", " + end + "> = " + weight + "]";
 	}
 	
 }
