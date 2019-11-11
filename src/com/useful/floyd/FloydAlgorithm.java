@@ -37,6 +37,10 @@ public class FloydAlgorithm {
 		// 测试邻接矩阵是否正常
 		graph.show();
 		
+		graph.floyd();
+		
+		graph.show();
+		
 	}
 	
 }
@@ -83,6 +87,25 @@ class Graph{
 			}
 			System.out.println();
 			System.out.println();
+		}
+	}
+	
+	// 弗洛伊德算法
+	public void floyd(){
+		int len = 0;	// 变量保存距离
+		// 对中间顶点遍历，k就是中间顶点的下标[A,B,C,D,E,F,G]
+		for(int k=0;k<dis.length;k++){
+			// 从i顶点开始出发[A,B,C,D,E,F,G]
+			for(int i=0;i<dis.length;i++){
+				// 达到j顶点 //[A,B,C,D,E,F,G]
+				for(int j=0;j<dis.length;j++){
+					len = dis[i][k] + dis[k][j]; // 求出i顶点出发，经过中间顶点，到达j顶点距离
+					if(len<dis[i][j]){// 如果len小于dis[i][j]
+						dis[i][j] = len;// 更新j距离
+						pre[i][j] = pre[k][j]; // 更新前驱节点
+					}
+				}
+			}
 		}
 	}
 	
