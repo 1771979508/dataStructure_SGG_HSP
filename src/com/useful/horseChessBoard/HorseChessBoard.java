@@ -42,7 +42,27 @@ public class HorseChessBoard {
 	
 	public static void main(String[] args) {
 		
+		// 测试骑士周游算法是否正确
+		X = 8;
+		Y = 8;
+		int row = 1;// 马儿初始位置的行，从1开始编号
+		int column = 1;// 马儿初始位置的列，从1开始编号
+		// 创建棋盘
+		int[][] chessboard = new int[X][Y];
+		visited = new boolean[X*Y]; // 初始值都是false
+		// 测试耗时
+		long start = System.currentTimeMillis();
+		traversalChessboard(chessboard, row-1, column-1, 1);
+		long end = System.currentTimeMillis();
+		System.out.println("共耗时："+(end-start) + " 毫秒");
 		
+		// 输出马踏棋盘的最后情况
+		for(int[] rows : chessboard){
+			for(int step : rows){
+				System.out.print(step + "\t");
+			}
+			System.out.println();
+		}
 		
 	}
 	
